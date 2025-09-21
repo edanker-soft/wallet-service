@@ -13,9 +13,19 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "wallet")
+@Getter
+@Setter
+@NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class Wallet {
 
   @Id
@@ -34,22 +44,13 @@ public class Wallet {
   @Column(name = "password")
   private String password;
 
+  @Builder.Default
   @Column(name = "balance")
   private BigDecimal balance = BigDecimal.ZERO;
 
-  // One-to-many relationship for transaction history
+  @Builder.Default
   @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<Transaction> transactions = new ArrayList<>();
-
-  public Wallet() {
-  }
-
-  public Wallet(String fullName, String cpfCnpj, String email, String password) {
-    this.fullName = fullName;
-    this.cpfCnpj = cpfCnpj;
-    this.email = email;
-    this.password = password;
-  }
 
   public boolean isBalanceEqualOrGreaterThan(BigDecimal value) {
     return this.balance.compareTo(value) >= 0;
@@ -66,70 +67,14 @@ public class Wallet {
   }
 
   private void addTransaction(TransactionType type, BigDecimal amount, String description) {
-    Transaction transaction = new Transaction();
-    transaction.setWallet(this);
-    transaction.setType(type);
-    transaction.setAmount(amount);
-    transaction.setDescription(description);
-    transaction.setTimestamp(LocalDateTime.now());
-    transaction.setBalanceAfterOperation(this.balance);
+    var transaction = Transaction.builder()
+        .wallet(this)
+        .type(type)
+        .amount(amount)
+        .description(description)
+        .timestamp(LocalDateTime.now())
+        .balanceAfterOperation(this.balance)
+        .build();
     this.transactions.add(transaction);
-  }
-
-  // Getters and setters...
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public String getFullName() {
-    return fullName;
-  }
-
-  public void setFullName(String fullName) {
-    this.fullName = fullName;
-  }
-
-  public String getCpfCnpj() {
-    return cpfCnpj;
-  }
-
-  public void setCpfCnpj(String cpfCnpj) {
-    this.cpfCnpj = cpfCnpj;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-  public BigDecimal getBalance() {
-    return balance;
-  }
-
-  public void setBalance(BigDecimal balance) {
-    this.balance = balance;
-  }
-
-  public List<Transaction> getTransactions() {
-    return transactions;
-  }
-
-  public void setTransactions(List<Transaction> transactions) {
-    this.transactions = transactions;
   }
 }

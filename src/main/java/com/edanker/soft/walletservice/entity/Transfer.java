@@ -12,9 +12,19 @@ import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "transfer")
+@Getter
+@Setter
+@NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class Transfer {
 
   @Id
@@ -38,55 +48,5 @@ public class Transfer {
   @PrePersist
   protected void onCreate() {
     createdAt = LocalDateTime.now();
-  }
-
-  public Transfer() {
-  }
-
-  public Transfer(Wallet sender, Wallet receiver, BigDecimal value) {
-    this.sender = sender;
-    this.receiver = receiver;
-    this.value = value;
-  }
-
-  // Getters and setters...
-  public UUID getId() {
-    return id;
-  }
-
-  public void setId(UUID id) {
-    this.id = id;
-  }
-
-  public Wallet getSender() {
-    return sender;
-  }
-
-  public void setSender(Wallet sender) {
-    this.sender = sender;
-  }
-
-  public Wallet getReceiver() {
-    return receiver;
-  }
-
-  public void setReceiver(Wallet receiver) {
-    this.receiver = receiver;
-  }
-
-  public BigDecimal getValue() {
-    return value;
-  }
-
-  public void setValue(BigDecimal value) {
-    this.value = value;
-  }
-
-  public LocalDateTime getCreatedAt() {
-    return createdAt;
-  }
-
-  public void setCreatedAt(LocalDateTime createdAt) {
-    this.createdAt = createdAt;
   }
 }

@@ -13,9 +13,19 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "transaction")
+@Getter
+@Setter
+@NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class Transaction {
 
   @Id
@@ -41,64 +51,4 @@ public class Transaction {
 
   @Column(name = "balance_after_operation")
   private BigDecimal balanceAfterOperation;
-
-  // Constructors
-  public Transaction() {}
-
-  // Getters and setters
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public Wallet getWallet() {
-    return wallet;
-  }
-
-  public void setWallet(Wallet wallet) {
-    this.wallet = wallet;
-  }
-
-  public TransactionType getType() {
-    return type;
-  }
-
-  public void setType(TransactionType type) {
-    this.type = type;
-  }
-
-  public BigDecimal getAmount() {
-    return amount;
-  }
-
-  public void setAmount(BigDecimal amount) {
-    this.amount = amount;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public LocalDateTime getTimestamp() {
-    return timestamp;
-  }
-
-  public void setTimestamp(LocalDateTime timestamp) {
-    this.timestamp = timestamp;
-  }
-
-  public BigDecimal getBalanceAfterOperation() {
-    return balanceAfterOperation;
-  }
-
-  public void setBalanceAfterOperation(BigDecimal balanceAfterOperation) {
-    this.balanceAfterOperation = balanceAfterOperation;
-  }
 }

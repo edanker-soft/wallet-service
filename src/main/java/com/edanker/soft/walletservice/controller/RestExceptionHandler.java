@@ -1,6 +1,7 @@
 package com.edanker.soft.walletservice.controller;
 
 import com.edanker.soft.walletservice.exceptions.WalletException;
+import lombok.Builder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -20,7 +21,10 @@ public class RestExceptionHandler {
 
     var fieldErrors = e.getFieldErrors()
         .stream()
-        .map(f -> new InvalidParam(f.getField(), f.getDefaultMessage()))
+        .map(f -> InvalidParam.builder()
+            .name(f.getField())
+            .reason(f.getDefaultMessage())
+            .build())
         .toList();
 
     var pb = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
@@ -31,7 +35,7 @@ public class RestExceptionHandler {
     return pb;
   }
 
+  @Builder
   private record InvalidParam(String name, String reason) {
-
   }
 }

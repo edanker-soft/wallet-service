@@ -1,8 +1,10 @@
 package com.edanker.soft.walletservice.exceptions;
 
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 
+@Getter
 public class WalletNotFoundException extends WalletException {
 
   private final Long walletId;

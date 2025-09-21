@@ -125,7 +125,7 @@ This wallet service implements the following core features:
     java -jar build/libs/wallet-service-*.jar
     ```
 
-5. The service will be available at `http://localhost:8080`
+5. The service will be available at `http://localhost:8080` for basic testing i used Postman application available here for download: https://www.postman.com/
 
 ## API Usage
 
@@ -309,3 +309,4 @@ This audit trail enables:
 - Balance reconciliation
 - Debugging and troubleshooting
 - Fraud detection and prevention
+

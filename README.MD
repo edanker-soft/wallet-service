@@ -302,7 +302,7 @@ Every monetary operation is fully audited:
 2. **Balance Tracking**: Each transaction stores the resulting balance
 3. **Temporal Queries**: Historical balance lookups use transaction timestamps
 4. **Operational Metadata**: Timestamps, operation types, and descriptions are recorded
-5. **Mission-Critical Reliability**: Fully ACID-compliant operations ensure data integrity
+5. **Mission-Critical Reliability**: Fully ACID-compliant (Atomicity, Consistency, Isolation, and Durability) operations ensure data integrity
 
 This audit trail enables:
 - Financial compliance reporting

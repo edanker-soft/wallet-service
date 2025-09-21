@@ -7,8 +7,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -30,6 +32,14 @@ public class Transfer {
   @Column(name = "value")
   private BigDecimal value;
 
+  @Column(name = "created_at")
+  private LocalDateTime createdAt;
+
+  @PrePersist
+  protected void onCreate() {
+    createdAt = LocalDateTime.now();
+  }
+
   public Transfer() {
   }
 
@@ -39,6 +49,7 @@ public class Transfer {
     this.value = value;
   }
 
+  // Getters and setters...
   public UUID getId() {
     return id;
   }
@@ -70,5 +81,12 @@ public class Transfer {
   public void setValue(BigDecimal value) {
     this.value = value;
   }
-}
 
+  public LocalDateTime getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(LocalDateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+}
